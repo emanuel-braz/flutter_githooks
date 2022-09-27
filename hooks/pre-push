@@ -4,8 +4,10 @@
 import 'dart:io';
 
 main(List<String> arguments) async {
-  await validateBranchName();
-  await validateTests();
+  await Future.wait([
+    validateBranchName(),
+    validateTests(),
+  ]);
 }
 
 Future<void> validateBranchName() async {
@@ -69,7 +71,8 @@ Future<void> validateTests() async {
     } else if (Platform.isLinux) {
       // faz algo
     }
+    
+    print('* Os testes falharam, verifique o log acima e tente novamente');
+    exit(1);
   }
-
-  exit(process.exitCode);
 }
