@@ -1,0 +1,32 @@
+#!/usr/bin/env dart
+// arquivo commit-msg
+
+import 'dart:io';
+
+main(List<String> arguments) async {
+  final commitMessage = (await File(arguments[0]).readAsString()).trim();
+  final allowedPrefixes = [
+    'build:',
+    'chore:',
+    'ci:',
+    'docs:',
+    'feat:',
+    'fix:',
+    'perf:',
+    'refactor:',
+    'revert:',
+    'style:',
+    'test:',
+    'bump:'
+  ];
+
+  final hasPrefix = allowedPrefixes.any((prefix) => commitMessage.startsWith(prefix));
+
+  if (!hasPrefix) {
+    print('* O commit deve conter um prefixo válido.\n'
+      'Os prefixos válidos são:\n\n'
+      '${allowedPrefixes.join(" ")}\n'
+    );
+    exit(1);
+  }
+}

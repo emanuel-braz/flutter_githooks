@@ -1,0 +1,30 @@
+#!/usr/bin/env dart
+// arquivo pre-push
+
+import 'dart:io';
+
+main(List<String> arguments) async {
+  print('* Executando os testes, aguarde...');
+  final process = await Process.run('dart', ['test'], runInShell: true);
+  print(process.stdout.toString());
+
+  if (process.exitCode == 0) {
+    if (Platform.isMacOS) {
+      Process.runSync('say', ['os testes passaram']);
+    } else if (Platform.isWindows) {
+      // faz algo
+    } else if (Platform.isLinux) {
+      // faz algo
+    }
+  } else {
+    if (Platform.isMacOS) {
+      Process.runSync('say', ['os testes falharam']);
+    } else if (Platform.isWindows) {
+      // faz algo
+    } else if (Platform.isLinux) {
+      // faz algo
+    }
+  }
+
+  exit(process.exitCode);
+}

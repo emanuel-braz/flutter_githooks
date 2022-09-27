@@ -1,0 +1,15 @@
+#!/usr/bin/env dart
+// arquivo pre-commit
+
+import 'dart:io';
+
+main(List<String> arguments) async {
+  print('* Analizando código dart, aguarde...\n');
+  final process = await Process.run('dart', ['analyze'], runInShell: true);
+  
+  if (process.exitCode != 0) {
+    print('* O código não é válido. verifique o erro!\n\n${process.stdout}');
+  }
+
+  exit(process.exitCode);
+}
