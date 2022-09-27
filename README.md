@@ -24,6 +24,7 @@ https://medium.com/@fastencoding/git-hooks-para-flutter-engineers-177a696bf119
 - Devemos utilizar o prefixo apropriado para o nome das branchs, exemplo: feature/, hotfix/, release/
 - Não é permitido utilizar underscores no nome da branch
 - Devemos usar Conventional Commits para escrever as mensagens de commit
+- Sempre que mudarmos de branch, precisamos rodar um "flutter pub get"
 
 ---
 

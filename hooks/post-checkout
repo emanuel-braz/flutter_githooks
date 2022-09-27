@@ -1,0 +1,10 @@
+#!/usr/bin/env dart
+// arquivo post-checkout
+
+import 'dart:io';
+
+main(List<String> arguments) async {
+  print('* Rodando um "flutter pub get", aguarde...\n');
+  final process = await Process.run('flutter', ['pub', 'get'], runInShell: true);
+  print(process.stdout);
+}
