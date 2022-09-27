@@ -4,6 +4,51 @@
 import 'dart:io';
 
 main(List<String> arguments) async {
+  await validateBranchName();
+  await validateTests();
+}
+
+Future<void> validateBranchName() async {
+  print('* Verificando o nome da branch, aguarde...');
+  final allowedPrefixes = [
+    'feature/',
+    'fix/',
+    'bugfix/',
+    'hotfix/',
+    'release/',
+    'docs/',
+    'chore/',
+    'refactor/',
+    'bump/',
+  ];
+  final process = await Process.run('git', ['branch', '--show-current'], runInShell: true);
+  final branchName = process.stdout.toString().trim();
+
+  if (branchName.contains('_')) {
+    print('* O nome da branch não pode conter o caracter "_"\n');
+    showBranchNameTips(allowedPrefixes, branchName);
+    exit(1);
+  }
+
+  final hasPrefix = allowedPrefixes.any((prefix) => branchName.startsWith(prefix));
+  final hasDashes = branchName.split('-').length > 2;
+
+  if (!hasPrefix || !hasDashes) {
+    showBranchNameTips(allowedPrefixes, branchName);
+    exit(1);
+  }
+}
+
+void showBranchNameTips(List<String> allowedPrefixes, String branchName) {
+  print('* O nome da branch ($branchName) deve seguir estas regras:\n\n'
+      '1. Deve conter um dos prefixos: ${allowedPrefixes.join(', ')} \n'
+      '2. Deve conter pelo menos 2 hífens "-" (Um separando a sigla e o numero do card e outro separando o nome da branch)\n'
+      '3. Não deve conter o caracter "_"');
+  print('\nDica para renomear a branch: git branch -m <novo-nome-da-branch>');
+  print('->\texemplo: git branch -m feature/SSDK-123-nome-da-branch\n');
+}
+
+Future<void> validateTests() async {
   print('* Executando os testes, aguarde...');
   final process = await Process.run('dart', ['test'], runInShell: true);
   print(process.stdout.toString());
