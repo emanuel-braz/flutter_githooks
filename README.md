@@ -1,4 +1,4 @@
-## E aí, bora descomplicar o git hooks?
+## E aí, bora descomplicar o git hook?
 
 ### Todos os detalhes, neste [artigo do medium](https://medium.com/@fastencoding/git-hooks-para-flutter-engineers-177a696bf119)
 
@@ -14,13 +14,25 @@ https://medium.com/@fastencoding/git-hooks-para-flutter-engineers-177a696bf119
 - Garanta que o time esteja utlizando mensagem de commits que seguem o "Conventional Commits". 
 
 ---
+### Nossos combinados de time/projeto
 
-#### Para ativar os git hooks de demonstração, execute:
+- Precisamos rodar os testes na máquina local antes de subir para o repo
+- Não podemos guardar códigos com erro de compilação
+- Devemos seguir as guidelines do projeto
+  - prints não são permitidos
+- O nome das branchs devem conter o card do Jira e a descrição/nome da branch, separados por hífens "-"
+- Devemos utilizar o prefixo apropriado para o nome das branchs, exemplo: feature/, hotfix/, release/
+- Não é permitido utilizar underscores no nome da branch
+- Devemos usar Conventional Commits para escrever as mensagens de commit
+
+---
+
+#### Para ativar os git hooks, execute:
 ```shell
 make install-hooks
 ```
 
-#### Para desativar os git hooks de demonstração, execute:
+#### Para desativar os git hooks, execute:
 ```shell
 make uninstall-hooks
 ```
